@@ -7,6 +7,14 @@ button {
   font-family: 'Shadows Into Light', cursive;
 }
 
+input {
+  font-family: 'Shadows Into Light', cursive;
+}
+
 #the-camp-intro {
+  color: white;
+}
+
+#local-storage-name-form {
   color: white;
 }

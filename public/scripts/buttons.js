@@ -1,4 +1,8 @@
 $("#start-roadtrip").click(function () {
+  if (screen > 0) {
+    return false;
+  }
+
   $("#title-screen").fadeOut(2000);
 
   screen = 1;

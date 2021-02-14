@@ -8,6 +8,8 @@ $(this).keypress(function (event) {
       setTimeout(function () {
         if (localStorage.getItem("prs-roadtrip-username") === null || localStorage.getItem("prs-roadtrip-username") === undefined || localStorage.getItem("prs-roadtrip-username") === "") {
           screen = 0;
+
+          $("#localstorage-name").fadeIn(2000);
         }
 
         else {
