@@ -6,7 +6,15 @@ $(this).keypress(function (event) {
       $("#the-camp").fadeOut(2000);
 
       setTimeout(function () {
-        $("#the-map").fadeIn(2000);
+        if (localStorage.getItem("prs-roadtrip-username") === null || localStorage.getItem("prs-roadtrip-username") === undefined || localStorage.getItem("prs-roadtrip-username") === "") {
+          screen = 0;
+        }
+
+        else {
+          $("#the-map").fadeIn(2000);
+
+          screen = 2;
+        }
       }, 2000);
     }
   }
