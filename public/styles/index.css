@@ -11,6 +11,10 @@ input {
   font-family: 'Shadows Into Light', cursive;
 }
 
+.map-option {
+  width: 100px;
+}
+
 #the-camp-intro {
   color: white;
 }

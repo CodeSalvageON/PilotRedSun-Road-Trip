@@ -1,3 +1,5 @@
+// Download modules
+
 const fs = require('fs');
 const express = require('express');
 
@@ -11,6 +13,8 @@ var io = require('socket.io')(http);
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Google Firestore
 
 const {
 	type,
@@ -45,6 +49,8 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
+
+// Application routes
 
 app.get('', function (req, res) {
   const index = __dirname + '/public/static/index.html';

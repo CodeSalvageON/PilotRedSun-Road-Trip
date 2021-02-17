@@ -1,3 +1,5 @@
+// Detect keys (for the camp)
+
 $(this).keypress(function (event) {
   console.log(event.keyCode);
 
@@ -16,8 +18,11 @@ $(this).keypress(function (event) {
           $("#the-map").fadeIn(2000);
 
           screen = 2;
+          current_location = "the-map";
+
+          localStorage.setItem("prs-current-location", "the-map");
         }
       }, 2000);
     }
   }
-})
+});

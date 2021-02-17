@@ -1,3 +1,5 @@
+// Localstorage name form
+
 $("#localstorage-name-form").submit(function () {
   if (screen > 0) {
     return false;

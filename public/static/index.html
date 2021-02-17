@@ -6,6 +6,8 @@
     <link href="https://codesalvageon.github.io/magichat/styles/index.css" rel="stylesheet">
     <link href="/styles/index.css" rel="stylesheet">
     <link href="/styles/backgrounds.css" rel="stylesheet">
+    <link href="/styles/pins.css" rel="stylesheet">
+    <link href="/styles/road.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">   
@@ -26,6 +28,14 @@
         <div id="the-camp-intro" align="left"></div>
       </div>
       <div id="the-map" class="rounded boxed center sunlight"> 
+        <div id="the-map-status" align="right">
+          <h3 class="button no-margin map-option glass" id="the-camp-map-button">The Camp</h3>
+          <h3 class="button no-margin map-option glass" id="achievement-house-map-button">Achievement House</h3>
+          <h3 class="button no-margin map-option glass" id="the-farm-map-button">The Farm</h3>
+          <h3 class="button no-margin map-option glass" id="the-city-map-button">The City</h3>
+          <h3 class="button no-margin map-option glass" id="the-houses-map-button">The Houses</h3>
+          <h3 class="button no-margin map-option glass" id="the-prison-map-button">The Prison</h3>
+        </div>
       </div> 
       <div id="localstorage-name" class="rounded boxed center sunlight">
         <div> 
@@ -37,8 +47,13 @@
           </form>
         </div>
       </div>
+      <div id="the-road">
+        <canvas id="road-canvas" width="749" height="256"></canvas> 
+      </div>
     </div>
     <br/>
+
+    <audio src="https://cdn.discordapp.com/attachments/772064957793435678/811239395348709426/Mouse-Click-00-c-FesliyanStudios.com.mp3" id="mouse-click"></audio>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/scripts/restraining-bolt.js"></script>
@@ -46,5 +61,6 @@
     <script src="/scripts/buttons.js"></script>
     <script src="/scripts/detectkey.js"></script>
     <script src="/scripts/forms.js"></script>
+    <script src="/scripts/road/road.js"></script>
   </body>
 </html>
