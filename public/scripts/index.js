@@ -2,6 +2,7 @@
 
 let screen = 0;
 let current_location = localStorage.getItem("prs-current-location");
+let current_destination = localStorage.getItem("prs-current-destination");
 
 $("#the-camp").hide();
 $("#the-map").hide();

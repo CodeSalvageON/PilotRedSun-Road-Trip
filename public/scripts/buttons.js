@@ -67,6 +67,9 @@ $("#the-camp-map-button").click(function () {
     current_location = "the-road"
     localStorage.setItem("prs-current-location", "the-road");
 
+    current_destination = "the-camp";
+    localStorage.setItem("prs-current-destination", "the-camp");
+
     $("#the-map").fadeOut(2000);
 
     setTimeout(function () {

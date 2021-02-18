@@ -11,6 +11,10 @@ input {
   font-family: 'Shadows Into Light', cursive;
 }
 
+canvas {
+  background-color: skyblue;
+}
+
 .map-option {
   width: 100px;
 }

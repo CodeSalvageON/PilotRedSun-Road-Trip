@@ -1,4 +1,6 @@
 #road-canvas {
   width: 749px;
   height: 256px;
+  background-size: 100%;
+  background-image: url("https://media.discordapp.net/attachments/772064957793435678/811606077543284736/roadbg.png?width=1498&height=632");
 }
