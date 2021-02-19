@@ -14,6 +14,13 @@ const road_sprite_y = 550;
 const dashboard_sprite_x = 0;
 const dashboard_sprite_y = 380;
 
+let road_destination_x = 300;
+let road_destination_y = 530;
+
+// Width and Height values for sprites 
+let road_destination_width = 51.27
+let road_destination_height = 21.6
+
 // Render sprites
 const road_sprite = new Image();
 road_sprite.onload = function () {
@@ -33,31 +40,62 @@ dashboard_sprite.onload = function () {
 }
 dashboard_sprite.src = "https://media.discordapp.net/attachments/772064957793435678/811751585683996742/dashboard-removebg-preview.png";
 
+// Render the destination from localStorage
+const road_destination = new Image();
+road_destination.onload = function () {
+  road_render.drawImage(road_destination, road_destination_x, road_destination_y, road_destination.width / 15, road_destination.height / 15);
+
+  console.log("Road Destination rendered at coordinates " + road_destination_x + ", " + road_destination_y);
+  console.log("Road Destination width and height: " + road_destination.width + ", " + road_destination.height);
+}
+
+if (current_destination === "the-camp") {
+  road_destination.src = "https://media.discordapp.net/attachments/772064957793435678/811956430575894588/camp_destination-removebg-preview.png";
+}
+
 // Steering the car
 
-function driveLeft () {
-  console.log("Drove left");
-
-  if (road_sprite_x < 1) {
-    return false;
-  }
-
-  road_render.clearRect(0, 0, road.width, road.height);
-
+function carSpeed () {
   if (speed < 1) {
-    road_sprite_x = road_sprite_x - 2.5;
+    speed = 0;
   }
 
   else {
-    road_sprite_x = road_sprite_x - 5;
+    speed = speed - 3;
+
+    road_render.clearRect(0, 0, road.width, road.height);
+
+    road_render.drawImage(road_sprite, road_sprite_x, road_sprite_y);
+
+    road_render.font = "20px Arial";
+    road_render.fillText("Speed: " + speed, 50, 150);
+
+    road_render.drawImage(road_destination, road_destination_x, road_destination_y, road_destination_width, road_destination_height);
+    road_render.drawImage(dashboard_sprite, dashboard_sprite_x, dashboard_sprite_y);
   }
 
-  road_render.drawImage(road_sprite, road_sprite_x, road_sprite_y);
-  road_render.drawImage(dashboard_sprite, dashboard_sprite_x, dashboard_sprite_y);
+  if (road_destination_width > 396) {
+    road_render.font = "20px Arial";
+    road_render.fillText("Press X to get out of the car.", 50, 170);
+
+    $(this).keypress(function (event) {
+      if (event.keyCode === 120) {
+        current_location = current_destination;
+        localStorage.setItem("prs-current-location", current_destination);
+
+        $("#the-road").fadeOut(2000);
+
+        setTimeout(function () {
+          $("#" + current_destination).fadeIn(2000);
+          $("#the-map").hide();
+        }, 2000);
+      }
+    });
+  }
 }
 
-function driveRight () {
-  console.log("Drove right");
+function driveLeft () {
+  console.log("Drove left");
 
   if (road_sprite_x > 159) {
     return false;
@@ -67,31 +105,160 @@ function driveRight () {
 
   if (speed < 1) {
     road_sprite_x = road_sprite_x + 2.5;
+    road_destination_x = road_destination_x + 2.5;
   }
 
   else {
     road_sprite_x = road_sprite_x + 5;
+    road_destination_x = road_destination_x + 5;
   }
 
   road_render.drawImage(road_sprite, road_sprite_x, road_sprite_y);
+  road_render.drawImage(road_destination, road_destination_x, road_destination_y, road_destination_width, road_destination_height);
   road_render.drawImage(dashboard_sprite, dashboard_sprite_x, dashboard_sprite_y);
+
+  road_render.font = "20px Arial";
+  road_render.fillText("Speed: " + speed, 50, 150);
 }
 
-if (current_location === "the-road") {
-  $(this).keypress(function (event) {
-    if (event.keyCode === 97) {
-      driveLeft();
-    }
+function driveRight () {
+  console.log("Drove right");
 
-    else if (event.keyCode === 100) {
-      driveRight();
-    }
-  });
+  if (road_sprite_x < 1) {
+    return false;
+  }
+
+  road_render.clearRect(0, 0, road.width, road.height);
+
+  if (speed < 1) {
+    road_sprite_x = road_sprite_x - 2.5;
+    road_destination_x = road_destination_x - 2.5;
+  }
+
+  else {
+    road_sprite_x = road_sprite_x - 5;
+    road_destination_x = road_destination_x - 5;
+  }
+
+  road_render.drawImage(road_sprite, road_sprite_x, road_sprite_y);
+  road_render.drawImage(road_destination, road_destination_x, road_destination_y, road_destination_width, road_destination_height);
+  road_render.drawImage(dashboard_sprite, dashboard_sprite_x, dashboard_sprite_y);
+
+  road_render.font = "20px Arial";
+  road_render.fillText("Speed: " + speed, 50, 150);
 }
 
-else {
-  console.log("Access to car denied.");
+function driveForward () {
+  console.log("Drove forward");
+
+  if (road_destination_width > 396) {
+    road_render.font = "20px Arial";
+    road_render.fillText("Press X to get out of the car.", 50, 170);
+
+    return false;
+  }
+
+  if (speed > 200) {
+    speed = 200;
+  }
+
+  else {
+    speed = speed + 1.5;
+  }
+
+  if (speed < 100) {
+    road_destination_width = road_destination_width + 0.05;
+    road_destination_height = road_destination_height + 0.05;
+
+    road_destination_y = road_destination_y - 0.05;
+  }
+
+  else {
+    road_destination_width = road_destination_width + 0.5;
+    road_destination_height = road_destination_height + 0.5;
+
+    road_destination_y = road_destination_y - 0.5;
+  }
+
+  road_render.clearRect(0, 0, road.width, road.height);
+
+  road_render.drawImage(road_sprite, road_sprite_x, road_sprite_y);
+  road_render.drawImage(road_destination, road_destination_x, road_destination_y, road_destination_width, road_destination_height);
+  road_render.drawImage(dashboard_sprite, dashboard_sprite_x, dashboard_sprite_y);
+
+  road_render.font = "20px Arial";
+  road_render.fillText("Speed: " + speed, 50, 150);
 }
+
+function driveBackward () {
+  console.log("Drove backward");
+
+  if (road_destination_width < 51) {
+    return false;
+  }
+
+  if (speed > 200) {
+    speed = 200
+  }
+
+  else {
+    speed = speed + 1.5;
+  }
+
+  if (speed < 100) {
+    road_destination_width = road_destination_width - 0.05;
+    road_destination_height = road_destination_height - 0.05;
+
+    road_destination_y = road_destination_y + 0.05;
+  }
+
+  else {
+    road_destination_width = road_destination_width - 0.5;
+    road_destination_height = road_destination_height - 0.5;
+
+    road_destination_y = road_destination_y + 0.5;
+  }
+
+  road_render.clearRect(0, 0, road.width, road.height);
+
+  road_render.drawImage(road_sprite, road_sprite_x, road_sprite_y);
+  road_render.drawImage(road_destination, road_destination_x, road_destination_y, road_destination_width, road_destination_height);
+  road_render.drawImage(dashboard_sprite, dashboard_sprite_x, dashboard_sprite_y);
+
+  road_render.font = "20px Arial";
+  road_render.fillText("Speed: " + speed, 50, 150);
+}
+
+function updateVar () {
+  if (current_location === "the-road") {
+    $(this).keypress(function (event) {
+      if (event.keyCode === 97) {
+        driveLeft();
+      }
+
+      else if (event.keyCode === 100) {
+        driveRight();
+      }
+
+      else if (event.keyCode === 119) {
+        driveForward();
+      }
+
+      else if (event.keyCode === 115) {
+        driveBackward();
+      }
+    });
+  }
+
+  else {
+    console.log("Access to car denied.");
+  }
+}
+
+setInterval(carSpeed, 500);
+setInterval(updateVar, 10000);
+
+updateVar();
 
 // Fix bugs
 
@@ -100,6 +267,8 @@ function simulateKeyPress(character) {
 }
 
 $(document).ready(function () {
-  simulateKeyPress("d");
-  simulateKeyPress("a");
+  setTimeout(function () {
+    simulateKeyPress("d");
+    simulateKeyPress("a");
+  }, 1000);
 });

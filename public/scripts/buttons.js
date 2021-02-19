@@ -63,17 +63,15 @@ $("#the-camp-map-button").click(function () {
     return false;
   }
 
-  if (current_location === "the-map") {
-    current_location = "the-road"
-    localStorage.setItem("prs-current-location", "the-road");
+  current_location = "the-road";
+  localStorage.setItem("prs-current-location", "the-road");
 
-    current_destination = "the-camp";
-    localStorage.setItem("prs-current-destination", "the-camp");
+  current_destination = "the-camp";
+  localStorage.setItem("prs-current-destination", "the-camp");
 
-    $("#the-map").fadeOut(2000);
+  $("#the-map").fadeOut(2000);
 
-    setTimeout(function () {
-
-    }, 2000);
-  }
+  setTimeout(function () {
+    $("#the-road").fadeIn(2000);
+  }, 2000);
 });

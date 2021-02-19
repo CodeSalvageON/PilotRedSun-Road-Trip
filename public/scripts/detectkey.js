@@ -3,7 +3,7 @@
 $(this).keypress(function (event) {
   console.log(event.keyCode);
 
-  if (screen === 1) {
+  if (screen === 1 || current_location === "the-camp") {
     if (event.keyCode === 120) {
       $("#the-camp").fadeOut(2000);
 
