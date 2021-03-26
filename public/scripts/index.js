@@ -8,3 +8,10 @@ $("#the-camp").hide();
 $("#the-map").hide();
 $("#localstorage-name").hide();
 $("#the-road").hide();
+$("#achievement-house").hide();
+$("#the-farm").hide();
+$("#the-city").hide();
+$("#the-houses").hide();
+$("#the-prison").hide();
+
+fetchCamp();

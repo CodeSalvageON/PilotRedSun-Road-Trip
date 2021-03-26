@@ -49,8 +49,46 @@ road_destination.onload = function () {
   console.log("Road Destination width and height: " + road_destination.width + ", " + road_destination.height);
 }
 
-if (current_destination === "the-camp") {
-  road_destination.src = "https://media.discordapp.net/attachments/772064957793435678/811956430575894588/camp_destination-removebg-preview.png";
+function renderRoadDestination () {
+  road_destination_width = 51.27
+  road_destination_height = 21.6
+
+  road_destination_x = 300;
+  road_destination_y = 530;
+
+  speed = 0;
+
+  road_render.clearRect(0, 0, road.width, road.height);
+
+  simulateKeyPress("w");
+
+  road_render.drawImage(road_sprite, road_sprite_x, road_sprite_y);
+
+  if (current_destination === "the-camp") {
+    road_destination.src = "https://media.discordapp.net/attachments/772064957793435678/811956430575894588/camp_destination-removebg-preview.png";
+  }
+
+  else if (current_destination === "achievement-house") {
+    road_destination.src = "https://media.discordapp.net/attachments/772064957793435678/814121166797012992/achievement_house_1-removebg-preview.png";
+  }
+
+  else if (current_destination === "the-farm") {
+    road_destination.src = "https://media.discordapp.net/attachments/772064957793435678/814849248797524008/the-farm-removebg-preview.png";
+  }
+
+  else if (current_destination === "the-city") {
+    road_destination.src = "https://media.discordapp.net/attachments/772064957793435678/816438666716512266/thecity-removebg-preview.png";
+  }
+
+  else if (current_destination === "the-houses") {
+    road_destination.src = "https://media.discordapp.net/attachments/772064957793435678/816455690163453952/houses-removebg-preview.png";
+  }
+
+  else if (current_destination === "the-prison") {
+    road_destination.src = "https://media.discordapp.net/attachments/772064957793435678/816676692687978526/image-removebg-preview.png";
+  }
+
+  road_render.drawImage(dashboard_sprite, dashboard_sprite_x, dashboard_sprite_y);
 }
 
 // Steering the car
@@ -76,12 +114,24 @@ function carSpeed () {
 
   if (road_destination_width > 396) {
     road_render.font = "20px Arial";
-    road_render.fillText("Press X to get out of the car.", 50, 170);
+    road_render.fillText("Press Y to get out of the car.", 50, 170);
 
     $(this).keypress(function (event) {
-      if (event.keyCode === 120) {
-        current_location = current_destination;
-        localStorage.setItem("prs-current-location", current_destination);
+      if (event.keyCode === 121 && current_location === "the-road") {
+        road_render.clearRect(0, 0, road.width, road.height);
+
+        road_render.drawImage(road_sprite, road_sprite_x, road_sprite_y);
+
+        road_render.font = "20px Arial";
+        road_render.fillText("Speed: " + speed, 50, 150);
+
+        road_render.drawImage(road_destination, road_destination_x, road_destination_y, 51.27, 21.6);
+        road_render.drawImage(dashboard_sprite, dashboard_sprite_x, dashboard_sprite_y);
+
+        setTimeout(function () {
+          current_location = current_destination;
+          localStorage.setItem("prs-current-location", current_destination);
+        }, 1000);
 
         $("#the-road").fadeOut(2000);
 
@@ -153,7 +203,7 @@ function driveForward () {
 
   if (road_destination_width > 396) {
     road_render.font = "20px Arial";
-    road_render.fillText("Press X to get out of the car.", 50, 170);
+    road_render.fillText("Press Y to get out of the car.", 50, 170);
 
     return false;
   }
@@ -257,6 +307,8 @@ function updateVar () {
 
 setInterval(carSpeed, 500);
 setInterval(updateVar, 10000);
+
+renderRoadDestination();
 
 updateVar();
 
